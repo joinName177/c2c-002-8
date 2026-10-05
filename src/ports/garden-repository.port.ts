@@ -1,2 +1,2 @@
-import type { GardenSnapshot } from '../core/models';
-export interface GardenRepository { load(): GardenSnapshot; save(snapshot: GardenSnapshot): void; }
+import type { GardenStore } from '../core/models';
+export interface GardenRepository { load(): GardenStore; save(store: GardenStore): void; }

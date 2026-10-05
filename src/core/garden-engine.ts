@@ -1,4 +1,4 @@
-import type { Emotion, EmotionEntry, GardenSnapshot, GrowthStage, Plant } from './models';
+import type { Emotion, EmotionEntry, GardenProfile, GardenSnapshot, GrowthStage, Plant } from './models';
 import { EMOTION_META, EMOTIONS } from './models';
 
 const day = 86400000;
@@ -29,6 +29,9 @@ export function annualReport(entries: EmotionEntry[]) {
   const active = new Set(entries.map((item) => item.date)).size;
   const intensity = entries.length ? entries.reduce((sum, item) => sum + item.intensity, 0) / entries.length : 0;
   return { top: counts[0], counts, active, lushness: Math.min(100, Math.round((active / 90) * 70 + (intensity / 5) * 30)), intensity: Math.round(intensity * 10) / 10 };
+}
+export function createProfile(name: string, snapshot: GardenSnapshot = { entries: [], plants: [] }): GardenProfile {
+  return { id: `profile-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`, name: name.trim() || '未命名花园', createdAt: new Date().toISOString(), entries: [...snapshot.entries], plants: syncPlants(snapshot.entries, snapshot.plants) };
 }
 export function sampleSnapshot(): GardenSnapshot {
   const today = new Date(); const entries: EmotionEntry[] = [];
