@@ -5,6 +5,20 @@ export interface EmotionEntry { id: string; date: string; emotion: Emotion; note
 export interface Plant { id: string; emotion: Emotion; plantedAt: string; lastWatered: string; streak: number; stage: GrowthStage; status: '繁茂' | '枯萎'; entryIds: string[]; }
 export interface GardenSnapshot { entries: EmotionEntry[]; plants: Plant[]; }
 
+export interface GardenProfile {
+  id: string;
+  name: string;
+  createdAt: string;
+  garden: GardenSnapshot;
+}
+
+export interface ProfileBook {
+  currentId: string;
+  profiles: GardenProfile[];
+}
+
+export function emptySnapshot(): GardenSnapshot { return { entries: [], plants: [] }; }
+
 export const EMOTIONS: Emotion[] = ['愤怒', '平静', '喜悦', '忧伤', '焦虑'];
 export const EMOTION_META: Record<Emotion, { plant: string; symbol: string; color: string; hint: string }> = {
   愤怒: { plant: '刺刺多肉', symbol: '♠', color: '#ef7c65', hint: '有刺，但也在保护你' },
